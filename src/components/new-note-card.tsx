@@ -1,9 +1,11 @@
 // pega as exportações de react-dialog e coloca no objeto chamado Dialog
 import * as Dialog from '@radix-ui/react-dialog';
+// pega a exportação de lucide-react e coloca no objeto chamado X
 import { X } from 'lucide-react'
 import { ChangeEvent, FormEvent, useState } from 'react';
 import { toast } from 'sonner';
 
+// define a estrutura de uma nova nota
 interface NewNoteCardProps {
     onNoteCreated: (content: string) => void;
 }

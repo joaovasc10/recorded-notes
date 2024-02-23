@@ -2,6 +2,7 @@ import { NewNoteCard } from './components/new-note-card';
 import { NoteCard } from './components/note-card';
 import { useState } from 'react';
 
+// define a estrutura de uma nota
 interface Note{
   id: string,
   date: Date,
@@ -10,8 +11,10 @@ interface Note{
 
 export function App() {
 
+  // estado para armazenar o valor do campo de pesquisa
   const [search, setSearch] = useState('')
 
+  // estado para armazenar as notas
   const [notes, setNotes] = useState<Note[]>(() => {
     // pega as notas salvas no localStorage do navegador
     const notesOnStorage = localStorage.getItem('notes');
@@ -26,14 +29,17 @@ export function App() {
   })
 
 
-
+  // função para criar uma nova nota
   function onNoteCreated(content: string){
+    // cria uma nova nota com as estrutura aprensentada na interface acima
     const newNote = {
+      // gera um id único para a nota
       id: crypto.randomUUID(),
       date: new Date(),
       content
     }
 
+    // atualiza o estado de notes com a nova nota e a nova nota sempre ficará a frente das outras
     const notesArray = [newNote, ...notes];
     setNotes(notesArray);
 
@@ -41,9 +47,11 @@ export function App() {
     localStorage.setItem('notes', JSON.stringify(notesArray));
   }
 
+  // função para deletar uma nota
   function onNoteDeleted(id: string){
     // filtra as notas para remover a nota com o id passado
     const notesArray = notes.filter(note => {
+      // retorna todas as notas que não tem o id passado
       return note.id !== id;
     })
 
@@ -59,7 +67,7 @@ export function App() {
   function handleSearch(event: React.ChangeEvent<HTMLInputElement>){
     // pega o valor do campo de texto
     const query = event.target.value;
-      
+    // atualiza o estado de search com o valor do campo de texto
     setSearch(query);
   }
 
